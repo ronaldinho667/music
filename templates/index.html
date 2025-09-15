@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compas Music</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header>
+    <div class="logo">🎵 Compas Music</div>
+    <nav>
+      <ul>
+        <li><a href="#" id="buscarBtn">Buscar</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="busqueda" style="display: none;">
+    <h2>Buscar música</h2>
+    <form>
+      <label for="tipo">Buscar por:</label><br />
+      <select id="tipo" name="tipo">
+        <option value="cancion">Nombre de la canción</option>
+        <option value="artista">Nombre del artista</option>
+      </select><br />
+      <input type="text" id="query" name="query" placeholder="Escribe tu búsqueda..." /><br />
+      <button type="submit">Buscar</button>
+    </form>
+  </section>
+
+  <main>
+    <section class="hero">
+      <h1>Descarga tu música favorita</h1>
+      <p>Explora, escucha y descarga sin límites.</p>
+      <a href="#catalogo" class="btn">Explorar catálogo</a>
+    </section>
+
+    <section id="catalogo" class="music-list">
+      <h2>Últimos lanzamientos</h2>
+
+      {% for nombre, artista, archivo in canciones %}
+        <div class="track">
+          <img src="{{ url_for('static', filename='img/default_cover.jpg') }}" alt="Portada" />
+          <div class="info">
+            <h3>{{ artista }} - {{ nombre }}</h3>
+            <a href="{{ url_for('static', filename='descargas/' + archivo) }}" download>Descargar</a>
+          </div>
+        </div>
+      {% endfor %}
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Compas Music. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    document.getElementById("buscarBtn").addEventListener("click", function
